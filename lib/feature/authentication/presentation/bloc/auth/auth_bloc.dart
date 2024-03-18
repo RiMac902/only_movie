@@ -50,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignInWithAppleAuthEvent>(_onSignInWithApple);
   }
 
-  _onSignInEmailPassword(
+  Future<void> _onSignInEmailPassword(
       SignInEmailPasswordAuthEvent event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     try {
@@ -66,7 +66,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onSignInWithGoogle(
+  Future<void> _onSignInWithGoogle(
       SignInWithGoogleAuthEvent event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     try {
@@ -79,7 +79,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onSignInWithFacebook(
+  Future<void> _onSignInWithFacebook(
       SignInWithFacebookAuthEvent event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     try {
@@ -92,7 +92,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onSignInWithApple(
+  Future<void> _onSignInWithApple(
       SignInWithAppleAuthEvent event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     try {
@@ -105,7 +105,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onSignUpEmailPassword(
+  Future<void> _onSignUpEmailPassword(
       SignUpEmailPasswordAuthEvent event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     try {
@@ -122,7 +122,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onSignOut(SignOutAuthEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onSignOut(SignOutAuthEvent event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     try {
       await _signOutUseCase();
@@ -134,7 +134,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  _onSendRecoveryEmail(
+  Future<void> _onSendRecoveryEmail(
       SendRecoveryEmailAuthEvent event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     try {

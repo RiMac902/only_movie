@@ -1,24 +1,24 @@
 import 'package:only_movie/feature/movie/domain/entities/movie_entity.dart';
 
-class Movie extends MovieEntity {
-  const Movie({
+class MovieModel extends MovieEntity {
+  const MovieModel({
     required super.id,
     required super.title,
     required super.overview,
     required super.posterPath,
   });
 
-  factory Movie.fromJson(Map<String, dynamic> map) {
-    return Movie(
+  factory MovieModel.fromJson(Map<String, dynamic> map) {
+    return MovieModel(
       id: map['id'] ?? '',
       title: map['title'] ?? '',
       overview: map['overview'] ?? '',
-      posterPath: map['posterPath'] ?? '',
+      posterPath: map['poster_path'] ?? '',
     );
   }
 
-  Movie copyWith(int? id, String? title, String? overview, String? posterPath) {
-    return Movie(
+  MovieModel copyWith(int? id, String? title, String? overview, String? posterPath) {
+    return MovieModel(
       id: id ?? this.id,
       title: title ?? this.title,
       overview: overview ?? this.overview,

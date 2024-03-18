@@ -5,10 +5,10 @@ import 'package:only_movie/feature/movie/domain/repositories/movie_repository.da
 
 import '../entities/movie_entity.dart';
 
-class GetPopularMovies implements UseCase<List<MovieEntity>, void> {
+class GetPopularMoviesUseCase implements UseCase<List<MovieEntity>, void> {
   final MovieRepository _movieRepository;
 
-  GetPopularMovies(this._movieRepository);
+  GetPopularMoviesUseCase(this._movieRepository);
 
   @override
   Future<Either<Failure, List<MovieEntity>>> call({void params}) {
