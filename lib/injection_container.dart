@@ -14,18 +14,22 @@ import 'feature/authentication/domain/use_cases/signin_google_usecase.dart';
 import 'feature/authentication/domain/use_cases/signout.dart';
 import 'feature/authentication/domain/use_cases/signup_email_password.dart';
 import 'feature/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'feature/movie/data/data_sources/movie_remote_data_source.dart';
+import 'feature/movie/domain/repositories/movie_repository.dart';
 
 final sl = GetIt.instance;
 
 Future<void> initializeDependencies() async {
-  /// Auth:
+  /// Firebase:
   sl.registerSingleton<FirebaseAuthDataSource>(FirebaseAuthDataSource());
   sl.registerSingleton<FirebaseStorageDataSource>(FirebaseStorageDataSource());
   sl.registerSingleton<AuthRepository>(AuthRepositoryImpl(sl(), sl()));
 
-  ///UseCases
+  ///TMDB:
+  sl.registerSingleton<MovieRemoteDataSource>(MovieRemoteDataSourceImpl(sl(), sl()));
+  sl.registerSingleton<MovieRepository>(MovieRepositoryImpl(sl()));
 
-  ///Auth:
+  ///UseCases:
   sl.registerSingleton<SignInWithEmailAndPasswordUseCase>(SignInWithEmailAndPasswordUseCase(sl()));
   sl.registerSingleton<SignUpWithEmailAndPasswordUseCase>(SignUpWithEmailAndPasswordUseCase(sl()));
   sl.registerSingleton<SignOutUseCase>(SignOutUseCase(sl()));
@@ -39,9 +43,7 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<ChangePasswordUseCase>(ChangePasswordUseCase(sl()));
   sl.registerSingleton<SendVerifyEmailUseCase>(SendVerifyEmailUseCase(sl()));
   sl.registerSingleton<ChangeProfilePhotoUseCase>(ChangeProfilePhotoUseCase(sl()));
-
-  ///Blocs
-
-  ///Global:
+  
+  ///Blocs:
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()));
 }

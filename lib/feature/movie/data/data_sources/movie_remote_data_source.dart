@@ -20,9 +20,13 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
   MovieRemoteDataSourceImpl(this.dio, this.tmdbApi);
 
   @override
-  Future<Either<Failure, List<MovieEntity>>> getPopularMovies() {
-    // TODO: implement getPopularMovies
-    throw UnimplementedError();
+  Future<Either<Failure, List<MovieEntity>>> getPopularMovies() async {
+    final response = await dio.get('${TmdbApi.baseUrl}/movie/popular?api_key=${TmdbApi.apiKey}');
+
+    if (response.statusCode == 200) {
+      return right(response.data);
+    }
+
   }
 
   @override
