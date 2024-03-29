@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class MovieCard extends StatelessWidget {
@@ -5,6 +8,8 @@ class MovieCard extends StatelessWidget {
   final String title;
   final String overview;
   final String posterPath;
+  final String backdropPath;
+  final List<String>? genres;
 
   const MovieCard({
     super.key,
@@ -12,37 +17,41 @@ class MovieCard extends StatelessWidget {
     required this.title,
     required this.overview,
     required this.posterPath,
+    this.genres,
+    required this.backdropPath,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.all(8),
-      child: InkWell(
-        onTap: () {},
+    // String genresString = genres?.join(', ') ?? '';
+
+    return InkWell(
+      child: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network('https://image.tmdb.org/t/p/w500/$posterPath'),
-            const SizedBox(height: 8),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+            CachedNetworkImage(
+              imageUrl: 'https://image.tmdb.org/t/p/original/$posterPath',
+              height: 400,
+              width: 270,
+              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+              errorWidget: (context, url, error) => const Icon(Icons.error),
+              imageBuilder: (context, imageProvider) => Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Text(
-                overview,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
+            const SizedBox(height: 10),
+            Text(
+              title,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge!
+                  .copyWith(color: Colors.white),
             ),
           ],
         ),

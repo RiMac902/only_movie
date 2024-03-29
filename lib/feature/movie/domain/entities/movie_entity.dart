@@ -5,14 +5,18 @@ class MovieEntity extends Equatable {
   final String title;
   final String overview;
   final String posterPath;
+  final String backdropPath;
+  final List<String>? genres;
 
   const MovieEntity({
     required this.id,
     required this.title,
     required this.overview,
     required this.posterPath,
+    required this.backdropPath,
+    this.genres
   });
 
   @override
-  List<Object?> get props => [id, title, overview, posterPath];
+  List<Object?> get props => [id, title, overview, posterPath, genres, backdropPath];
 }

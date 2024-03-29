@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get_it/get_it.dart';
+import 'package:only_movie/feature/movie/domain/use_cases/get_latest_movies_usecase.dart';
 import 'package:only_movie/feature/movie/domain/use_cases/get_popular_movies_usecase.dart';
 import 'package:only_movie/feature/movie/domain/use_cases/get_trending_movies_usecase.dart';
 import 'package:only_movie/feature/movie/domain/use_cases/search_movies_usecase.dart';
@@ -23,6 +24,7 @@ import 'feature/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'feature/movie/data/data_sources/movie_remote_data_source.dart';
 import 'feature/movie/data/repositories/movie_repository_impl.dart';
 import 'feature/movie/domain/repositories/movie_repository.dart';
+import 'feature/movie/presentation/bloc/latest_movies/latest_movies_bloc.dart';
 import 'feature/movie/presentation/bloc/search_movies/search_movies_bloc.dart';
 import 'feature/movie/presentation/bloc/trending_movies/trending_movies_bloc.dart';
 import 'firebase_options.dart';
@@ -66,10 +68,13 @@ Future<void> initializeDependencies() async {
   sl.registerSingleton<GetPopularMoviesUseCase>(GetPopularMoviesUseCase(sl()));
   sl.registerSingleton<GetTrendingMoviesUseCase>(GetTrendingMoviesUseCase(sl()));
   sl.registerSingleton<SearchMoviesUseCase>(SearchMoviesUseCase(sl()));
+  sl.registerSingleton<GetLatestMoviesUseCase>(GetLatestMoviesUseCase(sl()));
 
   /// BLoCs:
   sl.registerFactory<AuthBloc>(() => AuthBloc(sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl(), sl()));
   sl.registerFactory<PopularMoviesBloc>(() => PopularMoviesBloc(sl()));
   sl.registerFactory<SearchMoviesBloc>(() => SearchMoviesBloc(sl()));
   sl.registerFactory<TrendingMoviesBloc>(() => TrendingMoviesBloc(sl()));
+  sl.registerFactory<LatestMoviesBloc>(() => LatestMoviesBloc(sl()));
+
 }

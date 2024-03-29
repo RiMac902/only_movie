@@ -11,6 +11,8 @@ abstract interface class MovieRemoteDataSource {
   Future<Either<Failure, List<MovieModel>>> searchMovies(String query);
 
   Future<Either<Failure, List<MovieModel>>> getPopularMovies();
+
+  Future<Either<Failure, List<MovieModel>>> getLatestMovies();
 }
 
 class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
@@ -71,6 +73,26 @@ class MovieRemoteDataSourceImpl implements MovieRemoteDataSource {
         final List<dynamic> movieData = response.data['results'];
         final List<MovieModel> result =
             movieData.map((data) => MovieModel.fromJson(data)).toList();
+        return right(result);
+      } else {
+        return left(Failure(
+            'Failed to fetch popular movies. Status code: ${response.statusCode}'));
+      }
+    } catch (e) {
+      return left(Failure('An error occurred: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<MovieModel>>> getLatestMovies() async {
+    try {
+      final response = await dio.get('${TmdbApi.baseUrl}/movie/now_playing',
+          queryParameters: {'api_key': TmdbApi.apiKey});
+
+      if (response.statusCode == 200) {
+        final List<dynamic> movieData = response.data['results'];
+        final List<MovieModel> result =
+        movieData.map((data) => MovieModel.fromJson(data)).toList();
         return right(result);
       } else {
         return left(Failure(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'config/routes/routes.dart';
 import 'feature/authentication/presentation/bloc/auth/auth_bloc.dart';
+import 'feature/movie/presentation/bloc/latest_movies/latest_movies_bloc.dart';
 import 'feature/movie/presentation/bloc/pupular_movies/popular_movies_bloc.dart';
 import 'feature/movie/presentation/bloc/search_movies/search_movies_bloc.dart';
 import 'feature/movie/presentation/bloc/trending_movies/trending_movies_bloc.dart';
@@ -40,6 +41,9 @@ class MyApp extends StatelessWidget {
             create: (context) => sl(),
           ),
           BlocProvider<TrendingMoviesBloc>(
+            create: (context) => sl(),
+          ),
+          BlocProvider<LatestMoviesBloc>(
             create: (context) => sl(),
           )
         ],

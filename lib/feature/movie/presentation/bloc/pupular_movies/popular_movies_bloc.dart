@@ -9,12 +9,14 @@ import '../../../domain/entities/movie_entity.dart';
 import '../../../domain/use_cases/get_popular_movies_usecase.dart';
 
 part 'popular_movies_event.dart';
+
 part 'popular_movies_state.dart';
 
 class PopularMoviesBloc extends Bloc<PopularMoviesEvent, PopularMoviesState> {
   final GetPopularMoviesUseCase _getPopularMoviesUseCase;
 
-  PopularMoviesBloc(this._getPopularMoviesUseCase) : super(const PopularMoviesInitial()) {
+  PopularMoviesBloc(this._getPopularMoviesUseCase)
+      : super(const PopularMoviesInitial()) {
     on<GetPopularMoviesEvent>(_onGetPopularMovies);
   }
 
@@ -23,10 +25,12 @@ class PopularMoviesBloc extends Bloc<PopularMoviesEvent, PopularMoviesState> {
     emit(const PopularMoviesLoading());
     try {
       final result = await _getPopularMoviesUseCase();
-      emit(result.fold(
-            (failure) => PopularMoviesFailure(failure.toString()),
-            (movies) => PopularMoviesSuccess(movies),
-      ));
+      emit(
+        result.fold(
+          (failure) => PopularMoviesFailure(failure.toString()),
+          (movies) => PopularMoviesSuccess(movies),
+        ),
+      );
     } catch (e) {
       SnackBarHelper.showError(event.context, e);
     }

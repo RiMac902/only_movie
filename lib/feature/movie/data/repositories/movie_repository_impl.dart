@@ -24,4 +24,9 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<Either<Failure, List<MovieEntity>>> searchMovies(String query) async {
       return movieRemoteDataSource.searchMovies(query);
   }
+
+  @override
+  Future<Either<Failure, List<MovieEntity>>> getLatestMovies() async {
+    return movieRemoteDataSource.getLatestMovies();
+  }
 }

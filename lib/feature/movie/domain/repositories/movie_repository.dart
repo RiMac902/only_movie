@@ -8,4 +8,6 @@ abstract interface class MovieRepository {
   Future<Either<Failure, List<MovieEntity>>> searchMovies(String query);
 
   Future<Either<Failure, List<MovieEntity>>> getPopularMovies();
+
+  Future<Either<Failure, List<MovieEntity>>> getLatestMovies();
 }

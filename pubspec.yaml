@@ -25,6 +25,8 @@ dependencies:
   firebase_core: ^2.27.0
   fpdart: ^1.1.0
   dio: ^5.4.1
+  carousel_slider: ^4.2.1
+  cached_network_image: ^3.3.1
 
 dev_dependencies:
   flutter_test:
