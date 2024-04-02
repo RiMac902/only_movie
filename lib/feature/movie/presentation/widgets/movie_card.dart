@@ -23,17 +23,17 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // String genresString = genres?.join(', ') ?? '';
-
     return InkWell(
       child: SingleChildScrollView(
         child: Column(
           children: [
             CachedNetworkImage(
               imageUrl: 'https://image.tmdb.org/t/p/original/$posterPath',
-              height: 400,
-              width: 270,
-              placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+              height: MediaQuery.of(context).size.height * 0.4,
+              width:  MediaQuery.of(context).size.width * 0.5,
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(),
+              ),
               errorWidget: (context, url, error) => const Icon(Icons.error),
               imageBuilder: (context, imageProvider) => Container(
                 decoration: BoxDecoration(
@@ -48,10 +48,10 @@ class MovieCard extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               title,
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge!
-                  .copyWith(color: Colors.white),
+              style: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: Colors.white,
+                  ),
+              textAlign: TextAlign.center,
             ),
           ],
         ),
