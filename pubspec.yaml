@@ -3,7 +3,7 @@ description: "OnlyMovie"
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+1
 
 environment:
   sdk: '>=3.3.0 <4.0.0'
@@ -27,6 +27,7 @@ dependencies:
   dio: ^5.4.1
   carousel_slider: ^4.2.1
   cached_network_image: ^3.3.1
+  upgrader: ^10.3.0
 
 dev_dependencies:
   flutter_test:

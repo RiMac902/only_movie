@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -10,7 +9,6 @@ import '../../../domain/entities/movie_entity.dart';
 import '../../../domain/use_cases/get_latest_movies_usecase.dart';
 
 part 'latest_movies_event.dart';
-
 part 'latest_movies_state.dart';
 
 class LatestMoviesBloc extends Bloc<LatestMoviesEvent, LatestMoviesState> {
