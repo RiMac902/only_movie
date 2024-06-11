@@ -1,11 +1,15 @@
+import 'dart:ui';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:only_movie/feature/movie/domain/entities/movie_entity.dart';
 import 'package:only_movie/feature/movie/presentation/widgets/movie_card.dart';
 
 import '../bloc/latest_movies/latest_movies_bloc.dart';
-import '../widgets/smooth_transition_image.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -14,13 +18,10 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMixin {
+class _HomeScreenState extends State<HomeScreen> {
   int selectedMovieIndex = 0;
   late MovieEntity movie;
   final CarouselController _carouselController = CarouselController();
-
-  @override
-  bool get wantKeepAlive => true;
 
   // String genresString = genres ?? '';
 
@@ -33,27 +34,26 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        //     child: ElevatedButton(
-        //       onPressed: () {
-        //         BlocProvider.of<AuthBloc>(context).add(
-        //           SignOutAuthEvent(context: context),
-        //         );
-        //       },
-        //       child: const Text('Log out'),
-        //     ),
-        //   ),
-        // ],
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   elevation: 0,
+      //   actions: [
+      //     Padding(
+      //       padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      //       child: ElevatedButton(
+      //         onPressed: () {
+      //           BlocProvider.of<AuthBloc>(context).add(
+      //             SignOutAuthEvent(context: context),
+      //           );
+      //         },
+      //         child: const Text('Log out'),
+      //       ),
+      //     ),
+      //   ],
+      // ),
       body: BlocBuilder<LatestMoviesBloc, LatestMoviesState>(
         builder: (context, state) {
           if (state is LatestMoviesSuccess) {
@@ -61,8 +61,26 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
               height: MediaQuery.of(context).size.height,
               child: Stack(
                 children: [
-                  SmoothTransitionImage(
-                    imageUrl: 'https://image.tmdb.org/t/p/w300/${state.movies[selectedMovieIndex].backdropPath}',
+                  CachedNetworkImage(
+                    imageUrl:
+                        'https://image.tmdb.org/t/p/original/${state.movies[selectedMovieIndex].backdropPath}',
+                    height: 500,
+                    imageBuilder: (context, imageProvider) => Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: imageProvider,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                        child: Container(
+                          color: Colors.black.withOpacity(0),
+                        ),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                   Positioned(
                     top: 200,
@@ -217,6 +235,4 @@ class _HomeScreenState extends State<HomeScreen> with AutomaticKeepAliveClientMi
       ),
     );
   }
-
-
 }
