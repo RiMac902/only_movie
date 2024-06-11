@@ -37,23 +37,6 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       backgroundColor: Colors.black,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0,
-      //   actions: [
-      //     Padding(
-      //       padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      //       child: ElevatedButton(
-      //         onPressed: () {
-      //           BlocProvider.of<AuthBloc>(context).add(
-      //             SignOutAuthEvent(context: context),
-      //           );
-      //         },
-      //         child: const Text('Log out'),
-      //       ),
-      //     ),
-      //   ],
-      // ),
       body: BlocBuilder<LatestMoviesBloc, LatestMoviesState>(
         builder: (context, state) {
           if (state is LatestMoviesSuccess) {
