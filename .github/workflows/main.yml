@@ -2,7 +2,7 @@ name: Deploy
 
 on:
   workflow_dispatch:
-    branches: ['main']
+    branches: ['main', 'master']
 
 jobs:
   build:
