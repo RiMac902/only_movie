@@ -1,4 +1,4 @@
-name: Deploy and Release
+name: Flutter CI
 
 on:
   workflow_dispatch:
@@ -10,7 +10,29 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
 
-      - name: Say Hello
-        run: echo "Hello, dude!"
+      - name: Set up Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: "17.x"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.22.0"
+          channel: 'stable'
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Flutter build APK
+        run: flutter build apk
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: Release APK
+          path: build/app/outputs/apk/release/app-release.apk
+
+      - name: Say Finish
+        run: echo "Finish"
