@@ -58,13 +58,13 @@ class MyApp extends StatelessWidget {
                 ColorScheme.fromSeed(seedColor: CupertinoColors.activeBlue),
           ),
           routerConfig: router,
-          builder: (BuildContext context, Widget? child) {
+          builder: (context, child) {
             return UpgradeAlert(
               upgrader: Upgrader(
                 debugDisplayAlways: true,
                 debugLogging: true,
-                minAppVersion: '0.0.1',
-                durationUntilAlertAgain: const Duration(seconds: 4),
+                minAppVersion: '1.0.1',
+                durationUntilAlertAgain: const Duration(seconds: 1),
                 willDisplayUpgrade: ({required bool display, String? installedVersion, UpgraderVersionInfo? versionInfo}) {
                   log('$display, $installedVersion, $versionInfo');
                   if (display) {
@@ -79,15 +79,7 @@ class MyApp extends StatelessWidget {
                 },
               ),
               navigatorKey: router.routerDelegate.navigatorKey,
-              child: Scaffold(
-                body: Container(
-                  padding: const EdgeInsets.all(16),
-                  color: Colors.red,
-                  child: const Center(
-                    child: Text('Need to Update'),
-                  ),
-                ),
-              ),
+              child: child ?? const Text('child'),
             );
           },
         ),
