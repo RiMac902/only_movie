@@ -9,7 +9,7 @@ import '../../../../resources/resources.dart';
 import '../bloc/auth/auth_bloc.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   State createState() => _LoginScreenState();

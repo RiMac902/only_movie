@@ -1,7 +1,6 @@
 import 'dart:io';
 
-import 'package:fpdart/src/either.dart';
-
+import 'package:fpdart/fpdart.dart';
 import 'package:only_movie/core/error/failures.dart';
 
 import '../../../../core/use_case/use_case.dart';

@@ -7,7 +7,7 @@ import '../../../../../core/components/outlined_text_form_field.dart';
 import '../bloc/auth/auth_bloc.dart';
 
 class CreateAccountScreen extends StatefulWidget {
-  const CreateAccountScreen({Key? key}) : super(key: key);
+  const CreateAccountScreen({super.key});
 
   @override
   State createState() => _CreateAccountScreenState();

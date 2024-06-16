@@ -32,7 +32,9 @@ class PopularMoviesBloc extends Bloc<PopularMoviesEvent, PopularMoviesState> {
         ),
       );
     } catch (e) {
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 }

@@ -27,7 +27,9 @@ class SearchMoviesBloc extends Bloc<SearchMoviesEvent, SearchMoviesState> {
             (movies) => SearchMoviesSuccess(movies),
       ));
     } catch (e) {
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 }

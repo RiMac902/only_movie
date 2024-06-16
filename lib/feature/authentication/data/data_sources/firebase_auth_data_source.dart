@@ -63,7 +63,7 @@ class FirebaseAuthDataSource {
 
   Future<void> changeEmail(String email) async {
     try {
-      await _firebaseAuth.currentUser?.updateEmail(email);
+      await _firebaseAuth.currentUser?.verifyBeforeUpdateEmail(email);
     } catch (e) {
       throw Exception(e);
     }

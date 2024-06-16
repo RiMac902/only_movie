@@ -59,10 +59,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         'password': event.password,
       });
       emit(const AuthSuccess());
-      GoRouter.of(event.context).goNamed('movie');
+      if (event.context.mounted) {
+        GoRouter.of(event.context).goNamed('movie');
+      }
     } catch (e) {
       emit(const AuthFailure());
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 
@@ -72,10 +76,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await _signInWithGoogleUseCase();
       emit(const AuthSuccess());
-      GoRouter.of(event.context).goNamed('movie');
+      if (event.context.mounted) {
+        GoRouter.of(event.context).goNamed('movie');
+      }
     } catch (e) {
       emit(const AuthFailure());
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 
@@ -85,10 +93,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await _signInWithFacebookUseCase();
       emit(const AuthSuccess());
-      GoRouter.of(event.context).goNamed('movie');
+      if (event.context.mounted) {
+        GoRouter.of(event.context).goNamed('movie');
+      }
     } catch (e) {
       emit(const AuthFailure());
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 
@@ -98,10 +110,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await _signInWithAppleUseCase();
       emit(const AuthSuccess());
-      GoRouter.of(event.context).goNamed('movie');
+      if (event.context.mounted) {
+        GoRouter.of(event.context).goNamed('movie');
+      }
     } catch (e) {
       emit(const AuthFailure());
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 
@@ -115,22 +131,31 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       });
       await _changeDisplayNameUseCase(params: event.displayName);
       emit(const AuthSuccess());
-      GoRouter.of(event.context).goNamed('movie');
+      if (event.context.mounted) {
+        GoRouter.of(event.context).goNamed('movie');
+      }
     } catch (e) {
       emit(const AuthFailure());
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 
-  Future<void> _onSignOut(SignOutAuthEvent event, Emitter<AuthState> emit) async {
+  Future<void> _onSignOut(
+      SignOutAuthEvent event, Emitter<AuthState> emit) async {
     emit(const AuthLoading());
     try {
       await _signOutUseCase();
       emit(const AuthSuccess());
-      GoRouter.of(event.context).goNamed('login');
+      if (event.context.mounted) {
+        GoRouter.of(event.context).goNamed('login');
+      }
     } catch (e) {
       emit(const AuthFailure());
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 
@@ -142,11 +167,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         params: event.email,
       );
       emit(const AuthSuccess());
-      ScaffoldMessenger.of(event.context)
-          .showSnackBar(const SnackBar(content: Text('Recovery email sent!')));
+      if (event.context.mounted) {
+        ScaffoldMessenger.of(event.context).showSnackBar(
+            const SnackBar(content: Text('Recovery email sent!')));
+      }
     } catch (e) {
       emit(const AuthFailure());
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 

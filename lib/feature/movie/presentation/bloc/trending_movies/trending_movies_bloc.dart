@@ -27,7 +27,9 @@ class TrendingMoviesBloc extends Bloc<TrendingMoviesEvent, TrendingMoviesState> 
             (movies) => TrendingMoviesSuccess(movies),
       ));
     } catch (e) {
-      SnackBarHelper.showError(event.context, e);
+      if (event.context.mounted) {
+        SnackBarHelper.showError(event.context, e);
+      }
     }
   }
 }
