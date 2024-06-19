@@ -20,13 +20,13 @@ platform :android do
           build_type: 'Release',
         )
 
-        latest_release = firebase_app_distribution(
+        firebase_app_distribution(
           app: FIREBASE_APP_ID,
           firebase_cli_token: FIREBASE_TOKEN,
           apk_path: "C:/Users/shark/StudioProjects/only_movie/build/app/outputs/flutter-apk/app-release.apk",
           testers: "romansk902@gmail.com",
           groups: "me",
-          release_notes: "First Firebase Distribution!",
+          release_notes: "Second Firebase Distribution!",
         )
     end
 end
