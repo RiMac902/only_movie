@@ -2,6 +2,8 @@ FIREBASE_APP_ID = '1:775898877631:android:c30f016833ce0e046d400a'
 GOOGLE_APPLICATION_CREDENTIALS = 'C:\Users\shark\Downloads'
 FIREBASE_TOKEN = '1//03Dg_zK-4NLOfCgYIARAAGAMSNwF-L9Ir-8-XJcdNLurjiBSn9BlRnsItKOkuOZ8tvwlGH-qP0U2DMx24HTP0sWrLeYU_g-RGsW8'
 
+opt_out_usage
+
 default_platform(:android)
 
 platform :android do
