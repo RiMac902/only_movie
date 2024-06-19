@@ -1,9 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:upgrader/upgrader.dart';
+
 import 'config/routes/routes.dart';
 import 'feature/authentication/presentation/bloc/auth/auth_bloc.dart';
 import 'feature/movie/presentation/bloc/latest_movies/latest_movies_bloc.dart';
@@ -62,20 +61,8 @@ class MyApp extends StatelessWidget {
               upgrader: Upgrader(
                 debugDisplayAlways: true,
                 debugLogging: true,
-                minAppVersion: '1.0.1',
-                durationUntilAlertAgain: const Duration(seconds: 1),
-                willDisplayUpgrade: ({required bool display, String? installedVersion, UpgraderVersionInfo? versionInfo}) {
-                  log('$display, $installedVersion, $versionInfo');
-                  if (display) {
-                    print('Upgrade alert will be displayed');
-                    log('Upgrade alert will be displayed');
-                    // Add your logic here when display is true
-                  } else {
-                    log('Upgrade alert will not be displayed');
-                    // Add your logic here when display is false
-
-                  }
-                },
+                minAppVersion: '1.0.0',
+                durationUntilAlertAgain: const Duration(days: 1),
               ),
               navigatorKey: router.routerDelegate.navigatorKey,
               child: child ?? const Text('child'),

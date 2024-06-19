@@ -1,3 +1,5 @@
+name: "Build & Release"
+
 on:
   pull_request:
     branches:
@@ -9,21 +11,18 @@ on:
       - master
       - develop
 
-name: "Build & Release"
-
 jobs:
   build:
     name: Build & Release
     runs-on: macos-latest
+    env:
+      FIREBASE_APP_ID: ${{ secrets.FIREBASE_APP_ID }}
+      FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -37,22 +36,23 @@ jobs:
           channel: 'stable'
           architecture: x64
 
+      - name: Install dependencies
+        run: flutter pub get
+
       - name: Build APK
         run: flutter build apk --release --split-per-abi
 
-      - name: Build iOS
+      - name: Install Fastlane
         run: |
-          flutter build ios --no-codesign
-          cd build/ios/iphoneos
-          mkdir Payload
-          cd Payload
-          ln -s ../Runner.app
-          cd ..
-          zip -r app.ipa Payload
+          gem install bundler
+          bundle install
+
+      - name: Run Fastlane
+        run: bundle exec fastlane distribute
 
       - name: Push to Releases
         uses: ncipollo/release-action@v1
         with:
-          artifacts: "build/app/outputs/apk/release/*,build/ios/iphoneos/app.ipa"
+          artifacts: "build/app/outputs/flutter-apk/app-release.apk"
           tag: v1.0.${{ github.run_number }}
           token: ${{ secrets.GITHUB_TOKEN }}
