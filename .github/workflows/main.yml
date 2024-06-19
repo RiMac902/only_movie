@@ -24,6 +24,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+          bundler-cache: true
+
+      - name: Fastlane Action
+        uses: maierj/fastlane-action@v3.1.0
+        with:
+          lane: 'distribute'
+
+
 #      - name: Set up Java
 #        uses: actions/setup-java@v4
 #        with:
@@ -42,17 +54,17 @@ jobs:
 #      - name: Build APK
 #        run: flutter build apk --release --split-per-abi
 
-      - name: Install Fastlane
-        run: |
-          gem install bundler
-          bundle install
-
-      - name: Run Fastlane
-        run: bundle exec fastlane distribute
-
-      - name: Push to Releases
-        uses: ncipollo/release-action@v1
-        with:
-          artifacts: "build/app/outputs/flutter-apk/app-release.apk"
-          tag: v1.0.${{ github.run_number }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+#      - name: Install Fastlane
+#        run: |
+#          gem install bundler
+#          bundle install
+#
+#      - name: Run Fastlane
+#        run: bundle exec fastlane distribute
+#
+#      - name: Push to Releases
+#        uses: ncipollo/release-action@v1
+#        with:
+#          artifacts: "build/app/outputs/flutter-apk/app-release.apk"
+#          tag: v1.0.${{ github.run_number }}
+#          token: ${{ secrets.GITHUB_TOKEN }}
