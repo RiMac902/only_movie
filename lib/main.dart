@@ -59,8 +59,6 @@ class MyApp extends StatelessWidget {
           builder: (context, child) {
             return UpgradeAlert(
               upgrader: Upgrader(
-                debugDisplayAlways: true,
-                debugLogging: true,
                 minAppVersion: '1.0.0',
                 durationUntilAlertAgain: const Duration(days: 1),
               ),
